@@ -1,3 +1,15 @@
+const bodyContent = () => {
+
+  const body = document.querySelector('body'),
+    text = body.textContent || body.innerText;
+
+  // Get the body text and send it to background.js which will check if it is JSON
+  chrome.runtime.sendMessage(text);
+
+  return text;
+
+}
+
 // If we're on pickyJSON.com get from storage and put into the page.
 if ( window.location.href.indexOf('http://pickyjson.com/') > -1 ) {
 
@@ -23,10 +35,11 @@ if ( window.location.href.indexOf('http://pickyjson.com/') > -1 ) {
 
 } else {
 
-  const body = document.querySelector('body'),
-    text = body.textContent || body.innerText;;
-
-  // Get the body text and send it to background.js which will check if it is JSON
-  chrome.runtime.sendMessage(text);
+  bodyContent();
 
 }
+
+// Receive message from background to see if there is JSON on tab change
+chrome.runtime.onMessage.addListener(() => {
+  bodyContent();
+});

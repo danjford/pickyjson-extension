@@ -14,9 +14,11 @@ chrome.contextMenus.create({
 });
 
 // Recieves a message from main.js, checking if the page contains JSON.
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, sender) => {
 
   try {
+
+    JSON.parse(request);
 
     chrome.browserAction.setBadgeBackgroundColor({color: '#1FCE6D', tabId: sender.tab.id});
     chrome.browserAction.setBadgeText({text: ' ', tabId: sender.tab.id});
@@ -27,7 +29,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   } catch (err) { /* Don't have to do anything */}
 
 });
-
 
 // On click of the badge, if there is data, go to the next page
 chrome.browserAction.onClicked.addListener((tab) => {
@@ -42,5 +43,12 @@ chrome.browserAction.onClicked.addListener((tab) => {
     });
 
   }
+
+});
+
+// On move from tab to tab, send message to front end to check if there is JSON
+chrome.tabs.onActivated.addListener((tab) => {
+
+  chrome.tabs.sendMessage(tab.tabId, 'tab change');
 
 });

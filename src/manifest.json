@@ -1,7 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "PickyJSON Extension",
+  "name": "PickyJSON",
+  "short_name": "PickyJSON",
   "version": "${version}",
+  "description": "Quick access to PickyJSON.com.",
   "content_scripts": [
     {
       "matches": [
@@ -24,5 +26,6 @@
   },
   "icons": {
     "128": "./img/icon.png"
-  }
+  },
+  "homepage_url"      : "https://github.com/corysimmons/picky.json/tree/gh-pages"
 }
