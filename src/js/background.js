@@ -2,7 +2,7 @@
 chrome.contextMenus.create({
   title: 'Copy to PickyJSON',
   contexts:['selection'],
-  onclick: function(info){
+  onclick: function(info, sender){
 
     chrome.storage.local.set({
       'pickyJSONMain': info.selectionText
@@ -14,33 +14,30 @@ chrome.contextMenus.create({
 });
 
 // Recieves a message from main.js, checking if the page contains JSON.
-let data = '';
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   try {
 
-    data = JSON.parse(request);
+    chrome.browserAction.setBadgeBackgroundColor({color: '#1FCE6D', tabId: sender.tab.id});
+    chrome.browserAction.setBadgeText({text: ' ', tabId: sender.tab.id});
 
-    chrome.browserAction.setIcon({
-      path: {
-        19: '/img/icon.png', // Needs to be switched to a notification image
-      },
-      tabId: sender.tab.id
-    });
+    localStorage.setItem(sender.tab.id, request);
+    chrome.storage.local.set(object);
 
   } catch (err) { /* Don't have to do anything */}
 
 });
 
 
-// On click of the button, if there is data, go to the next page
-chrome.browserAction.onClicked.addListener(() => {
+// On click of the badge, if there is data, go to the next page
+chrome.browserAction.onClicked.addListener((tab) => {
 
-  if ( data ) {
+  if ( localStorage[tab.id] ) {
 
     chrome.storage.local.set({
-      'pickyJSONMain': data
+      'pickyJSONMain': localStorage.getItem(tab.id)
     }, function() {
+      localStorage.removeItem( tab.id );
       chrome.tabs.create({ url: 'http://pickyjson.com/' });
     });
 

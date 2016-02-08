@@ -2,6 +2,7 @@
 if ( window.location.href.indexOf('http://pickyjson.com/') > -1 ) {
 
     chrome.storage.local.get('pickyJSONMain', function(result) {
+
       if ( result && result.pickyJSONMain ) {
 
         const textarea = document.querySelector('textarea');
@@ -20,10 +21,12 @@ if ( window.location.href.indexOf('http://pickyjson.com/') > -1 ) {
       }
     });
 
+} else {
+
+  const body = document.querySelector('body'),
+    text = body.textContent || body.innerText;;
+
+  // Get the body text and send it to background.js which will check if it is JSON
+  chrome.runtime.sendMessage(text);
+
 }
-
-const body = document.querySelector('body'),
-  text = body.textContent || body.innerText;;
-
-// Get the body text and send it to background.js which will check if it is JSON
-chrome.runtime.sendMessage(text);

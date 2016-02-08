@@ -11,9 +11,10 @@
     }
   ],
   "permissions": [
-    "contextMenus",
     "tabs",
-    "storage"
+    "storage",
+    "activeTab",
+    "contextMenus"
   ],
   "background": {
     "scripts": ["js/background.js"]
