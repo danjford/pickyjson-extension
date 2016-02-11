@@ -1,7 +1,8 @@
 const options = new Ractive({
   el: 'main',
   template: '#options',
-  append: true
+  append: true,
+  data: { theme: 'hljs', format: true, input: true } //defaults
 })
 
 options.on('saveOptions', () => {
@@ -9,8 +10,6 @@ options.on('saveOptions', () => {
   let saveOptions = options.get();
 
   options.set('saving', true);
-
-  console.log(saveOptions);
 
   chrome.storage.sync.set(saveOptions, () => {
     setTimeout(() => {
