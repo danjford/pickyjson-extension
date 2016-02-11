@@ -1,23 +1,36 @@
 {
   "name": "pickyjson-extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An extension to launch the page in pickyjson.com",
   "main": "dist/main.js",
   "scripts": {
-    "start": "npm run clean && npm-run-all copy:* --parallel watch:*",
+    "start": "npm run clean && npm-run-all copy:* --parallel watch:* styles:*",
+    "styles:stylus": "stylus -m -u autoprefixer-stylus -w ./src/styl/base.styl -o dist/css/style.css",
     "scripts:babel": "babel ./src/js --out-dir ./dist/js",
     "copy:images": "cp -r ./src/img/ ./dist/img/",
     "copy:manifest": "node ./tasks/manifestReplace.js",
-    "clean": "rm -drf dist && mkdir -p ./dist/{js,img}",
+    "copy:highlight": "cp ./node_modules/picky-highlight/dist/{picky-highlight.js,picky-highlight.js.map} ./dist/js/",
+    "copy:ractive": "cp ./node_modules/ractive/{ractive.js,ractive.js.map} ./dist/js",
+    "copy:clipboard": "cp ./node_modules/clipboard/dist/clipboard.js ./dist/js/",
+    "copy:css": "cp ./node_modules/picky-highlight/dist/{picky-highlight.css,picky-highlight.css.map} ./dist/css/",
+    "copy:html": "cp ./src/options.html ./dist/",
+    "clean": "rm -drf dist && mkdir -p ./dist/{js,css,img}",
     "watch:scripts": "watchman ./src/js \"npm run scripts:babel\"",
     "watch:manifest": "watchman ./src/manifest.json \"npm run copy:manifest\"",
+    "watch:html": "watchman ./src/options.html \"npm run copy:html\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "autoprefixer-stylus": "^0.9.1",
     "babel-cli": "^6.4.5",
     "babel-preset-es2015": "^6.3.13",
+    "picky-highlight": "0.0.1",
+    "stylus": "^0.53.0",
     "watchman": "^0.1.8"
+  },
+  "dependencies": {
+    "clipboard": "^1.5.8"
   }
 }

@@ -1,0 +1,64 @@
+*
+  margin 0
+  padding 0
+  box-sizing border-box
+
+html, body
+  margin 0
+  padding 0
+
+.grab.show ~ #json
+  padding-top 50px
+
+.picky
+  padding 15px
+  position absolute
+  height 100%
+  width 100%
+
+.grab
+  height 50px
+  position fixed
+  width 100%
+  left 0
+  top 0
+  z-index 2
+  display none
+  input
+    width 100%
+    border 0
+    border-bottom 1px solid darken(white, 10%)
+    outline 0
+    padding 0 10px
+    font-size .75rem
+    height 50px
+    line-height 50px
+    font-weight 500
+    color lighten(black, 30%)
+    &:placeholder-shown
+      font-weight 300
+  .btn-clipboard
+    position absolute
+    right 0
+    top 0
+    bottom 0
+    margin 0
+    padding 0 30px
+    border 1px solid darken(white, 10%)
+    border-top 0
+    border-right 0
+    background darken(white, 5%)
+    color darken(white, 50%)
+    text-transform uppercase
+    trans()
+    outline none
+    font-size .65rem
+    letter-spacing .15em
+    cursor pointer
+    &:hover
+      background darken(white, 6%)
+    &:active
+      background darken(white, 10%)
+
+.show
+  display block

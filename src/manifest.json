@@ -9,8 +9,13 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": ["js/main.js"]
+      "js": ["js/ractive.js", "js/picky-highlight.js", "js/clipboard.js", "js/main.js"],
+      "run_at" : "document_start"
     }
+  ],
+  "web_accessible_resources": [
+    "css/picky-highlight.css",
+    "css/style.css"
   ],
   "permissions": [
     "tabs",
@@ -27,5 +32,6 @@
   "icons": {
     "128": "./img/icon.png"
   },
-  "homepage_url"      : "https://github.com/corysimmons/picky.json/tree/gh-pages"
+  "homepage_url"      : "https://github.com/corysimmons/picky.json/tree/gh-pages",
+  "options_page": "options.html"
 }
