@@ -1,6 +1,6 @@
 {
   "name": "pickyjson-extension",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "An extension to launch the page in pickyjson.com",
   "main": "dist/main.js",
   "scripts": {

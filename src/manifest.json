@@ -3,7 +3,7 @@
   "name": "PickyJSON",
   "short_name": "PickyJSON",
   "version": "${version}",
-  "description": "Quick access to PickyJSON.com.",
+  "description": "JSON formatting and quick access to PickyJSON.com.",
   "content_scripts": [
     {
       "matches": [

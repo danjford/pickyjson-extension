@@ -216,6 +216,12 @@
         border-color: #BDBDBD
     }
 
+    .extra-info {
+      display: block;
+      font-size: 12px;
+      color: #b3b3b3;
+    }
+
     .btn {
       position: relative;
       padding: 10px 15px;
@@ -352,17 +358,6 @@
 
     <div class="form-group cf">
       <div class="container cf">
-        <label class="col-half">Show input</label>
-        <div class="check-wrapper col-half text-right">
-          <input type="checkbox" class="filled-in" id="check-1" checked="{{input}}">
-          <label for="check-1"></label>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="form-group cf">
-      <div class="container cf">
         <label class="col-half">Format JSON</label>
         <div class="check-wrapper col-half text-right">
           <input type="checkbox" class="filled-in" id="check-2" checked="{{format}}">
@@ -371,9 +366,25 @@
       </div>
     </div>
 
+    <div class="form-group cf">
+      <div class="container cf">
+        <label class="col-half">
+          Show input
+          <span class="extra-info">Requires Format JSON to be on</span>
+        </label>
+        <div class="check-wrapper col-half text-right">
+          <input type="checkbox" class="filled-in" id="check-1" checked="{{input}}">
+          <label for="check-1"></label>
+        </div>
+      </div>
+    </div>
+
     <div class="form-group">
       <div class="container cf">
-        <label class="col-half">Select the formatting theme</label>
+        <label class="col-half">
+          Select the formatting theme
+          <span class="extra-info">Requires Format JSON to be on</span>
+        </label>
         <div class="col-half text-right">
           <select value="{{theme}}">
             <option value="hljs">hljs</option>
