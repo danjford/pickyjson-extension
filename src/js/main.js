@@ -126,10 +126,23 @@ function prepareExtension() {
           el: '#json',
           data: parsedBody,
           debug: false,
+          localStorage: false
         });
 
         // Set the theme in the template
         highlighted.set('theme', config.theme);
+
+        highlighted.set((localStorage.getItem('highlighted') ? JSON.parse(localStorage.getItem('highlighted')) : {}));
+
+        highlighted.observe('*', (newVal, old) => {
+
+          if ( newVal && old !== newVal ) {
+            let highlightData = highlighted.get();
+            delete highlightData.data;
+            localStorage.setItem('highlighted', JSON.stringify(highlightData));
+          }
+
+        });
 
       }
 
@@ -151,7 +164,7 @@ function prepareExtension() {
         });
 
         // Observe the input and store in localStorage
-        input.observe('*', (old, newVal) => {
+        input.observe('*', (newVal, old) => {
 
           if ( newVal && old !== newVal ) {
             localStorage.setItem('input', JSON.stringify(input.get()));
