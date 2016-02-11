@@ -134,9 +134,9 @@ function prepareExtension() {
 
         highlighted.set((localStorage.getItem('highlighted') ? JSON.parse(localStorage.getItem('highlighted')) : {}));
 
-        highlighted.observe('*', (newVal, old) => {
+        highlighted.observe('* collapsed', (newVal, old) => {
 
-          if ( newVal && old !== newVal ) {
+          if ( newVal ) {
             let highlightData = highlighted.get();
             delete highlightData.data;
             localStorage.setItem('highlighted', JSON.stringify(highlightData));
