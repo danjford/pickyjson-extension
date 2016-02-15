@@ -42,6 +42,11 @@ chrome.browserAction.onClicked.addListener((tab) => {
       chrome.tabs.create({ url: 'http://pickyjson.com/' });
     });
 
+  } else {
+
+    // If no data, just open pickyjson.com
+    chrome.tabs.create({ url: 'http://pickyjson.com/' });
+
   }
 
 });
