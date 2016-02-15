@@ -1,0 +1,58 @@
+*
+  margin 0
+  padding 0
+  box-sizing border-box
+
+html, body
+  margin 0
+  padding 0
+
+.grab.show ~ #json
+  padding-top 50px
+
+.picky
+  padding 15px
+  position absolute
+  height 100%
+  width 100%
+
+.grab
+  height 50px
+  position fixed
+  width 100%
+  left 0
+  top 0
+  z-index 2
+  display none
+  user-select none
+  input
+    width: calc(100% - 115px)
+    border: 0
+    border-bottom: 1px solid darken(white, 10%)
+    outline: 0
+    padding: 0 10px
+    font-size: .75rem
+    height: 50px
+    line-height: 50px
+    font-weight: 500
+    float: left
+    color: lighten(black, 30%)
+    &:placeholder-shown
+      font-weight: 300
+
+.dropdown
+  position: relative
+  width: 115px
+  height: 50px
+  float: left
+  background-color: #F2F2F2
+  button
+    display: none
+    &:first-child
+      display: block
+  &:hover
+    button
+      display: block
+
+.show
+  display block

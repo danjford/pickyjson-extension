@@ -33,6 +33,26 @@ const unformatSelected = (path) => {
     .replace(/\.$/, '') // Gets rid of trailing full stop
 }
 
+// https://jonsuh.com/blog/detect-the-end-of-css-animations-and-transitions-with-javascript/
+const whichAnimation = () => {
+  var t,
+    el = document.createElement("fakeelement");
+
+  var animations = {
+    "animation"      : "animationend",
+    "OAnimation"     : "oAnimationEnd",
+    "MozAnimation"   : "animationend",
+    "WebkitAnimation": "webkitAnimationEnd"
+  }
+
+  for (t in animations){
+    if (el.style[t] !== undefined){
+      return animations[t];
+    }
+  }
+
+}
+
 
 // Defaults
 let config = {
@@ -97,8 +117,11 @@ function prepareExtension() {
 
       // HTML to inject into page
       const inputHTML = `<div class="grab">
-          <input type="text" id="picked" class="input" placeholder="Click something or type a selector" value="{{path}}" on-keyup="highlight:{{path}}">
-          <button class="btn-clipboard" data-clipboard-target="#picked">Copy</button>
+          <input id="picked" type="text" class="input" placeholder="Click something or type a selector" value="{{path}}" on-keyup="highlight:{{path}}"/>
+          <div class="dropdown">
+            <button class="btn-clipboard" data-clipboard-target="#picked">Copy Path</button>
+            <button class="btn-clipboard" data-clipboard-text="{{hidden}}" on-click="copyValue:{{path}}">Copy Value</button>
+          </div>
         </div>`;
       const mainHTML = `<div id="json"></div>`;
 
@@ -159,7 +182,9 @@ function prepareExtension() {
           data: (localStorage.getItem('input') ? JSON.parse(localStorage.getItem('input')) : {}),
           onrender: () => {
             const clipboard = new Clipboard('.btn-clipboard') // Stop crying Firefox!
-            clipboard // stop crying StandardJS!
+            clipboard.on('success', (e) => {
+              e.trigger.className += ' active';
+            });
           }
         });
 
@@ -185,6 +210,22 @@ function prepareExtension() {
         // Keup event from the grab.handlebars input, highlights the typed value
         input.on('highlight', function (el, value) {
           highlighted.set('isSelected', 'data.' + formatSelected(value).replace(/^\./, ''));
+        });
+
+        input.on('copyValue', function (el, value) {
+          input.set('hidden', JSON.stringify(highlighted.get('data.' + formatSelected(value).replace(/^\./, '') || {})));
+        });
+
+        const clipButtons = document.getElementsByClassName('btn-clipboard'),
+          animation = whichAnimation();
+
+        // For each button, add the event listener to remove the class
+        [].forEach.call(clipButtons, function(node) {
+          node.addEventListener(animation, function() {
+            setTimeout(() => {
+              this.classList.remove('active');
+            }, 400);
+          });
         });
 
       }
