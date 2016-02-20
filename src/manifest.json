@@ -32,6 +32,6 @@
   "icons": {
     "128": "./img/icon.png"
   },
-  "homepage_url"      : "https://github.com/corysimmons/picky.json/tree/gh-pages",
+  "homepage_url": "https://github.com/danjford/pickyjson-extension",
   "options_page": "options.html"
 }

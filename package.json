@@ -1,6 +1,6 @@
 {
   "name": "pickyjson-extension",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "An extension to launch the page in pickyjson.com",
   "main": "dist/main.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "autoprefixer-stylus": "^0.9.1",
     "babel-cli": "^6.4.5",
     "babel-preset-es2015": "^6.3.13",
-    "picky-highlight": "0.0.2",
+    "picky-highlight": "0.0.3",
     "stylus": "^0.53.0",
     "watchman": "^0.1.8"
   },
