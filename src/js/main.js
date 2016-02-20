@@ -152,10 +152,10 @@ function prepareExtension() {
           localStorage: false
         });
 
+        highlighted.set((localStorage.getItem('highlighted') ? JSON.parse(localStorage.getItem('highlighted')) : {}));
+
         // Set the theme in the template
         highlighted.set('theme', config.theme);
-
-        highlighted.set((localStorage.getItem('highlighted') ? JSON.parse(localStorage.getItem('highlighted')) : {}));
 
         highlighted.observe('* collapsed', (newVal, old) => {
 
