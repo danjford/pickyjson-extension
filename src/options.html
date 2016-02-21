@@ -6,6 +6,7 @@
 
     /* TODO: These styles should get moved into their own stylesheet */
 
+    /** General **/
     * {
       margin: 0;
       padding: 0;
@@ -32,14 +33,49 @@
       padding: 10px;
     }
 
+    /*** Form group ***/
+
     .form-group {
       position: relative;
       padding: 30px 0;
       border-bottom: 1px solid #eaeaea;
     }
 
+    .group {
+      margin: 15px 0;
+    }
+
     .form-group:last-child {
       border-bottom: 0;
+    }
+
+    /* Form group info */
+    .extra-info {
+      display: block;
+      font-size: 12px;
+      color: #b3b3b3;
+    }
+
+    /*** Structural ***/
+
+    /* Columns */
+    .col-half {
+      float: left;
+      width: 50%;
+      margin: 0;
+      padding: 0 10px;
+    }
+
+    .col-full {
+      float: left;
+      width: 100%;
+      margin: 0;
+      padding: 0 10px;
+    }
+
+    /* Positioning */
+    .text-right {
+      text-align: right;
     }
 
     .container {
@@ -47,6 +83,40 @@
       margin: 0 auto;
     }
 
+    /* Clearfix */
+    .cf:before,
+    .cf:after {
+      content: " ";
+      display: table;
+    }
+
+    .cf:after {
+      clear: both;
+    }
+
+    .cf {
+      *zoom: 1;
+    }
+
+    .col-full .picky {
+      position: relative;
+      font-size: 14px;
+      margin-top: 20px;
+      border: 1px solid #eaeaea;
+    }
+
+    .picky code {
+      white-space: normal;
+    }
+
+    .picky.custom .parent {
+      padding: 2px 0;
+      padding-left: 20px;
+    }
+
+    /** Components **/
+
+    /* Material checkbox */
     .check-wrapper input[type=checkbox] {
       display:none;
     }
@@ -216,12 +286,7 @@
         border-color: #BDBDBD
     }
 
-    .extra-info {
-      display: block;
-      font-size: 12px;
-      color: #b3b3b3;
-    }
-
+    /* Buttons */
     .btn {
       position: relative;
       padding: 10px 15px;
@@ -268,38 +333,30 @@
       background-color: #1cbcaf;
     }
 
-    .col-half {
-      float: left;
-      width: 50%;
-      margin: 0;
-      padding: 0 10px;
+    /* Inputs */
+    .input-container {
+      border-bottom: 1px solid #B5B4B4;
     }
 
-    .col-full {
-      float: left;
+    .input {
+      border: 0;
+      font-size: 12px;
+      padding: 8px 10px;
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    .input-picker {
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .input.stretch {
       width: 100%;
-      margin: 0;
-      padding: 0 10px;
     }
 
-    .cf:before,
-    .cf:after {
-      content: " ";
-      display: table;
-    }
+    /** Animated **/
 
-    .cf:after {
-      clear: both;
-    }
-
-    .cf {
-      *zoom: 1;
-    }
-
-    .text-right {
-      text-align: right;
-    }
-
+    /* Spinner */
     .spinner {
       font-size: 10px;
       position: relative;
@@ -343,6 +400,10 @@
     }
 
   </style>
+
+  <link rel="stylesheet" type="text/css" href="/css/picky-highlight.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+
 </head>
 <body>
 
@@ -389,12 +450,183 @@
           <select value="{{theme}}">
             <option value="hljs">hljs</option>
             <option value="space">Space</option>
+            <option value="custom">Custom</option>
           </select>
         </div>
       </div>
     </div>
 
+    {{#if customTheme }}
 
+      <style>
+
+        .custom {
+          background-color: {{custom.background}};
+          color: {{custom.seperator}};
+        }
+
+        .picky-attr {
+          color: {{custom.key}};
+        }
+
+        .picky-number {
+          color: {{custom.other}};
+        }
+
+        .picky-string {
+          color: {{custom.string}};
+        }
+
+        .picky-string:hover,
+        .picky-number:hover,
+        .picky-wrap:hover,
+        .picky-attr:hover {
+          background: {{custom.hover}};
+        }
+
+        .picky-string.is-selected,
+        .picky-number.is-selected,
+        .picky-wrap.is-selected,
+        .picky-attr.is-selected {
+          background: {{custom.selected}};
+        }
+
+        .picky-string:hover.is-selected,
+        .picky-number:hover.is-selected,
+        .picky-wrap:hover.is-selected,
+        .picky-attr:hover.is-selected {
+          background: {{custom.selected}};
+        }
+
+      </style>
+
+      <div class="form-group">
+        <div class="container cf">
+
+          <!-- Key -->
+          <div class="group cf">
+            <label class="col-half">
+              Key color
+            </label>
+            <div class="col-half text-right">
+              <input class="input stretch input-picker" type="color" name="string" placeholder="Type a color" value="{{custom.key}}" />
+              <span class="extra-info">{{custom.key}}</span>
+            </div>
+          </div>
+
+          <!-- First attribute -->
+          <div class="group cf">
+            <label class="col-half">
+              Value: String attributes color
+            </label>
+            <div class="col-half text-right">
+              <input class="input stretch input-picker" type="color" name="string" placeholder="Type a color" value="{{custom.string}}" />
+              <span class="extra-info">{{custom.string}}</span>
+            </div>
+          </div>
+
+          <!-- Other attributes -->
+          <div class="group cf">
+            <label class="col-half">
+              Value: Other attributes color
+              <span class="extra-info">Other types of attribtues such as Numbers, Boolean or False</span>
+            </label>
+            <div class="col-half text-right">
+              <input class="input stretch input-picker" type="color" name="other" placeholder="Type a color" value="{{custom.other}}" />
+              <span class="extra-info">{{custom.other}}</span>
+            </div>
+          </div>
+
+          <!-- Selected attribute -->
+          <div class="group cf">
+            <label class="col-half">
+              Selected attribute
+              <span class="extra-info">The currently selected attribute highlight colour</span>
+            </label>
+            <div class="col-half text-right">
+              <input class="input stretch input-picker" type="color" name="selected" placeholder="Type a color" value="{{custom.selected}}" />
+              <span class="extra-info">{{custom.selected}}</span>
+            </div>
+          </div>
+
+          <!-- Hovered attribute -->
+          <div class="group cf">
+            <label class="col-half">
+              Hovered attribute
+              <span class="extra-info">The attribute hover colour</span>
+            </label>
+            <div class="col-half text-right">
+              <input class="input stretch input-picker" type="color" name="hover" placeholder="Type a color" value="{{custom.hover}}" />
+              <span class="extra-info">{{custom.hover}}</span>
+            </div>
+          </div>
+
+          <!-- Background color -->
+          <div class="group cf">
+            <label class="col-half">
+              Background color
+              <span class="extra-info">The background colour of the code area</span>
+            </label>
+            <div class="col-half text-right">
+              <input class="input stretch input-picker" type="color" name="background" placeholder="Type a color" value="{{custom.background}}" />
+              <span class="extra-info">{{custom.background}}</span>
+            </div>
+          </div>
+
+          <!-- Brackets, colons, commas -->
+          <div class="group cf">
+            <label class="col-half">
+              Brackets, colons &amp; commas
+            </label>
+            <div class="col-half text-right">
+              <input class="input stretch input-picker" type="color" name="background" placeholder="Type a color" value="{{custom.seperator}}" />
+              <span class="extra-info">{{custom.seperator}}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    {{/if}}
+
+    <div class="form-group cf">
+
+      <div class="container">
+
+        <label class="col-half">
+          Preview
+        </label>
+
+        <div class="col-half text-right">
+          <button class="btn btn-green" on-click="minimise" >
+            {{#if this.minimised}} expand {{else}} minimise {{/if}}
+          </button>
+        </div>
+
+        {{#unless minimised}}
+          <div class="col-full">
+
+            <div class="picky {{theme}}">
+              <pre>
+                <code>
+                  <div class="outer-bracket">{</div>
+                  <div class="parent">
+                    <span class="picky-attr" on-click="select">"Number"</span>:<span class="picky-number" on-click="select">562</span>,
+                  </div>
+                  <div class="parent">
+                    <span class="picky-attr" on-click="select">"String"</span>:<span class="picky-string" on-click="select">"Test"</span>
+                  </div>
+                  <div class="outer-bracket">}</div>
+                </code>
+              </pre>
+            </div>
+
+          </div>
+        {{/unless}}
+
+      </div>
+
+    </div>
 
     <div class="form-group">
       <div class="container cf">

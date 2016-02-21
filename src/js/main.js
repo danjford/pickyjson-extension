@@ -58,7 +58,9 @@ const whichAnimation = () => {
 let config = {
   theme: 'hljs',
   format: true,
-  input: true
+  input: true,
+  custom: {},
+  customTheme: false
 }
 
 chrome.storage.sync.get((items) => {
@@ -227,6 +229,14 @@ function prepareExtension() {
             }, 400);
           });
         });
+
+      }
+
+      if ( config.theme === 'custom' && config.custom ) {
+
+        // Custom css
+        const customCSS = `.custom { background-color: ${config.custom.background}; color: ${config.custom.seperator}; } .picky-attr { color: ${config.custom.key}; } .picky-number { color: ${config.custom.other}; } .picky-string { color: ${config.custom.string}; } .picky-string:hover, .picky-number:hover, .picky-wrap:hover, .picky-attr:hover { background: ${config.custom.hover}; } .picky-string.is-selected, .picky-number.is-selected, .picky-wrap.is-selected, .picky-attr.is-selected { background: ${config.custom.selected}; } .picky-string:hover.is-selected, .picky-number:hover.is-selected, .picky-wrap:hover.is-selected, .picky-attr:hover.is-selected { background: ${config.custom.selected}; }`;
+        document.head.innerHTML += `<style>${customCSS}</style>`;
 
       }
 
